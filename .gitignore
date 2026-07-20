@@ -1,0 +1,17 @@
+# Build outputs
+bin/
+obj/
+dist/
+node_modules/
+coverage/
+
+# IDE / OS
+.vs/
+.vscode/
+.idea/
+.DS_Store
+
+# Logs and local env
+*.log
+.env
+.env.*

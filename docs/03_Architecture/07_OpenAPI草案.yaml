@@ -1,0 +1,41 @@
+openapi: 3.0.3
+info:
+  title: GrowthAI Lead Engine API
+  version: 0.1.0
+paths:
+  /api/leads:
+    get:
+      summary: List lead customers
+      parameters:
+        - name: status
+          in: query
+          schema: { type: string }
+        - name: platform
+          in: query
+          schema: { type: string }
+      responses:
+        '200': { description: OK }
+    post:
+      summary: Create lead customer
+      responses:
+        '201': { description: Created }
+  /api/ai/content/generate:
+    post:
+      summary: Generate new media lead content
+      responses:
+        '200': { description: OK }
+  /api/landing/{code}/submit:
+    post:
+      summary: Submit landing page lead form
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '201': { description: Created }
+  /api/analytics/overview:
+    get:
+      summary: Get dashboard overview metrics
+      responses:
+        '200': { description: OK }

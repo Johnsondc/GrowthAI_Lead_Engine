@@ -1,0 +1,2 @@
+-- Demo seed placeholders. Replace IDs before execution in production.
+-- Insert one tenant, one admin user, and common lead sources for Douyin/Xiaohongshu/Wechat/H5.
