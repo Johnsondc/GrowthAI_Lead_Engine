@@ -13,3 +13,13 @@
 ### Changed
 
 - 从“通用 B2B AI 线索仪表盘原型”调整为“AI 新媒体获客 SaaS 产品”。
+
+## v0.2.0 - Sprint 2 Project Generation Start
+
+### Added
+
+- Added ASP.NET Core/.NET 9 solution and project skeletons for Api, Application, Domain and Infrastructure.
+- Added core domain entities, enums, DTOs, service interfaces and in-memory service implementations.
+- Added API controllers for leads, AI content generation and analytics overview.
+- Added Vue3 frontend scaffold with router, Pinia store, API clients and MVP pages.
+- Added scaffold validation script.

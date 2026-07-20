@@ -1,0 +1,23 @@
+{
+  "name": "growthai-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@vitejs/plugin-vue": "latest",
+    "vite": "latest",
+    "vue": "latest",
+    "vue-router": "latest",
+    "pinia": "latest",
+    "element-plus": "latest"
+  },
+  "devDependencies": {
+    "typescript": "latest",
+    "vue-tsc": "latest"
+  }
+}

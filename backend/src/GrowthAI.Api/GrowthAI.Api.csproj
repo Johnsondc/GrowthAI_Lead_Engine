@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GrowthAI.Application\GrowthAI.Application.csproj" />
+    <ProjectReference Include="..\GrowthAI.Infrastructure\GrowthAI.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

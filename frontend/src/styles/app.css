@@ -1,0 +1,9 @@
+body { margin: 0; background: #f5f7fb; color: #1f2937; font-family: Inter, "PingFang SC", "Microsoft YaHei", sans-serif; }
+.app-shell { min-height: 100vh; }
+.sidebar { background: #101827; color: #fff; padding: 20px 0; }
+.sidebar h1 { margin: 0 20px 4px; font-size: 24px; }
+.sidebar p { margin: 0 20px 20px; color: #9ca3af; }
+.el-main { padding: 28px; }
+.el-card { margin-bottom: 16px; }
+.el-card strong { display: block; margin-top: 10px; font-size: 30px; }
+.result-card pre { white-space: pre-wrap; background: #f3f4f6; padding: 12px; border-radius: 8px; }
