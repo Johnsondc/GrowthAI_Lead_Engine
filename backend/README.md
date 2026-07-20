@@ -1,6 +1,6 @@
 # Backend
 
-目标技术栈：ASP.NET Core / .NET 9 + SQL Server + Redis + Hangfire。
+目标技术栈：ASP.NET Core / .NET 10 + MySQL + Redis + Hangfire。
 
 ## 项目结构规划
 

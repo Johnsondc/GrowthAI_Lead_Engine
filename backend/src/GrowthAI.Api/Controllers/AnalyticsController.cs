@@ -14,4 +14,16 @@ public sealed class AnalyticsController(IAnalyticsService analyticsService) : Co
     {
         return Ok(analyticsService.GetOverview(DemoTenantId));
     }
+
+    [HttpGet("sources")]
+    public IActionResult Sources()
+    {
+        return Ok(analyticsService.GetSources(DemoTenantId));
+    }
+
+    [HttpGet("funnel")]
+    public IActionResult Funnel()
+    {
+        return Ok(analyticsService.GetFunnel(DemoTenantId));
+    }
 }

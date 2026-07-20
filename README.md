@@ -41,8 +41,8 @@ Landing Page / 二维码 / 表单留资
 ## 技术栈规划
 
 - Frontend: Vue 3 + TypeScript + Element Plus
-- Backend: ASP.NET Core / .NET 9
-- Database: SQL Server
+- Backend: ASP.NET Core / .NET 10
+- Database: MySQL
 - Cache/Jobs: Redis + Hangfire
 - AI: DeepSeek / OpenAI / Qwen
 
@@ -50,7 +50,7 @@ Landing Page / 二维码 / 表单留资
 
 ```text
 backend/       ASP.NET Core 后端骨架
-database/      SQL Server 表结构与种子数据
+database/      MySQL 表结构与种子数据
 frontend/      Vue3 前端骨架
 docs/          产品、竞品、PRD、架构、开发文档
 prompts/       Cursor/Qoder/AI 编码 Prompt
@@ -70,7 +70,7 @@ CHANGELOG.md   版本变更记录
 - MVP PRD、用户流程、页面清单
 - 系统架构、数据库设计、API 设计
 - 前后端目录骨架
-- SQL Server 建表脚本
+- MySQL 建表脚本
 - AI 开发 Prompt 与任务清单
 
 ## 开发原则
@@ -79,3 +79,30 @@ CHANGELOG.md   版本变更记录
 - Lead First：一切围绕客户线索沉淀和转化。
 - Data First：所有来源、状态、转化都要可统计。
 - AI Second：AI 是提效工具，不替代获客业务闭环。
+
+## 本地启动（目标环境）
+
+> 当前项目已切换到 .NET 10 + MySQL 8。当前容器缺少 dotnet CLI，且 npm registry 对部分前端依赖返回 403；在正常开发机上按以下步骤启动。
+
+```bash
+docker compose up -d mysql redis
+cd backend
+dotnet restore
+dotnet run --project src/GrowthAI.Api/GrowthAI.Api.csproj
+```
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+后端健康检查：`GET http://localhost:5000/health`。
+
+## 当前功能对齐
+
+- 客户池：后端支持列表、创建、状态修改；前端有客户池列表页。
+- 内容中心：后端提供 AI 内容模板生成接口；前端有内容生成表单。
+- 引流页：后端提供配置读取和留资提交接口；前端有模拟提交表单。
+- 数据分析：后端支持总览、来源分布、状态漏斗；前端有基础展示页。
+- 企业管理：已有实体和设置页占位，员工/角色 CRUD 下一步继续生成。

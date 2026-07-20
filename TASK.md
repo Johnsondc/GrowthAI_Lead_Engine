@@ -9,9 +9,9 @@
 
 ## Sprint 2 待开发
 
-- [x] 创建 .NET 9 Web API 项目与解决方案。
+- [x] 创建 .NET 10 Web API 项目与解决方案。
 - [x] 创建 Vue3 + TypeScript + Element Plus 项目。
-- [ ] 落地 SQL Server 数据库迁移。
+- [ ] 落地 MySQL 数据库迁移。
 - [ ] 实现企业、用户、客户线索、来源、AI 内容、AI 任务基础 CRUD。
 - [x] 生成客户池列表、AI 内容生成页、Landing 表单页、数据分析页的前端骨架。
 - [ ] 接入一个 AI Provider 的文本生成接口。
