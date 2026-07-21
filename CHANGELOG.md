@@ -1,41 +1,36 @@
-# CHANGELOG
+# GrowthAI Lead Engine - Changelog
 
-## v0.3.0 (2026-07-21) - Sprint 3 认证与多租户
+## v0.6.0 - Sprint 6: M3 客户池
+- 新增 LeadCustomer 实体（客户线索，含状态流转/Tags/分配/去重）
+- 新增 FollowUpRecord 实体（跟进记录）
+- 新增 LeadRepository + FollowUpRecordRepository（Infrastructure层）
+- 新增 LeadService（Application层，含状态流转校验、手机/微信去重检测、分页查询）
+- 新增 LeadController（10个API端点：CRUD + 状态变更 + 分配 + 跟进 + 热门 + 统计）
+- 新增 004_customer_pool.sql（FollowUpRecord建表）
+- 更新 AppDbContext.cs（添加LeadCustomer + FollowUpRecord映射）
+- 更新 Program.cs（注册Lead相关DI服务）
 
-### 新增
-- **Sprint 3 完整后端实现**：JWT认证 + 多租户隔离 + 角色权限
-- `RolePolicies.cs` — 基于角色的授权策略（AdminOnly/AdminOrOwner/AdminOrOperator/AdminOrSales）
-- Swagger JWT 认证配置（支持在 Swagger UI 中测试受保护接口）
-- `database/migrations/001_initial.sql` — 6张核心业务表建表脚本
-- `database/migrations/002_auth_tenant.sql` — 种子数据（1测试企业 + 4角色用户）
+## v0.5.0 - Sprint 5: M2 企业管理
+- 新增 EnterpriseService + AppUserService（Application层）
+- 新增 EnterpriseDto + AppUserDto（DTO定义）
+- 新增 UsersController（用户CRUD，Admin权限）
+- 新增 SettingsController（企业信息管理）
+- 更新 Program.cs（注册Enterprise相关DI服务）
 
-### 修复
-- 4个 .csproj 文件重新生成（修复编码损坏导致的XML缺失）
-- `appsettings.json` / `appsettings.Development.json` 重新生成（修复JSON格式损坏）
-- `docker-compose.yml` 修复端口映射转义字符问题
-- Application.csproj 添加 Infrastructure 项目引用（修复编译错误）
-- Program.cs 添加 RoleClaimType 配置（修复角色校验失效）
+## v0.4.0 - Sprint 4: M5 AI引擎
+- 新增 AiTask/AiContent/AiPromptTemplate 实体
+- 新增 AiTaskType/AiTaskStatus 枚举
+- 新增 IAiProvider/MockAiProvider（AI提供者抽象）
+- 新增 AiService（AI任务管理：模板选择→调用→存储→频次控制）
+- 新增 003_ai_engine.sql（AiPromptTemplate表 + 5条Prompt种子数据）
+- 更新 AppDbContext.cs + Program.cs
 
-### 技术决策
-- 使用 .NET 9（LTS稳定版）替代 .NET 10 preview
-- MySQL Provider: Pomelo.EntityFrameworkCore.MySql 9.0.0
-- 包版本统一为 stable release
-
----
-
-## v0.2.0 (历史) - 需求分析与任务规划
-
-- `docs/BUSINESS_ARCHITECTURE.md` — 完整业务架构方案文档
-- `TASK.md` — AI可执行的开发任务清单（Sprint 3-15）
-- 确认三种主动获客模式全部纳入MVP
-
----
-
-## v0.1.0 (历史) - 代码骨架生成
-
-- 后端 .NET 四层项目结构
-- 前端 Vue3 + TS + Element Plus 骨架
-- docker-compose（MySQL 8.4 + Redis 7）
-- 内存数据仓库实现
-- 基础 Controller（Lead/Landing/Analytics）
-- 前端 MVP 页面
+## v0.3.0 - Sprint 3: 基础设施
+- 四层DDD项目结构（Domain/Infrastructure/Application/Api）
+- JWT认证（Access Token + Refresh Token）
+- TenantMiddleware 多租户隔离
+- RolePolicies 角色权限策略（Admin/Owner/Operator/Sales）
+- AuthController + TenantController
+- 001_initial.sql（6张核心表）+ 002_auth_tenant.sql（种子数据）
+- Docker Compose（MySQL 8 + Redis 7）
+- Swagger + JWT Bearer配置
