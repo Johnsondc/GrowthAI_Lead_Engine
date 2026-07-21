@@ -1,35 +1,39 @@
-# .NET
+## .NET
 bin/
 obj/
 *.user
 *.suo
-*.cache
-*.vs/
-packages/
+*.sln.docstates
+.vs/
+
+## NuGet
 *.nupkg
+*.snupkg
+**/packages/*
 
-# Node / Frontend
-node_modules/
-dist/
-.vite/
-*.local
+## Build
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
 
-# IDE
+## IDE
 .idea/
 *.swp
-*.swo
-.vscode/
-!vscode/settings.json
+*~
 
-# OS
-Thumbs.db
-.DS_Store
+## Node
+node_modules/
+dist/
 
-# Environment
+## Environment
 .env
-.env.*
-!.env.example
 
-# Logs
-*.log
-logs/
+## OS
+.DS_Store
+Thumbs.db
+
+## Temp
+_temp/
+_project/
+*.bak
