@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mysql:
     image: mysql:8.4
@@ -8,7 +6,7 @@ services:
       MYSQL_ROOT_PASSWORD: root123
       MYSQL_DATABASE: growthai_dev
     ports:
-      - \"3306:3306\"
+      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./database/migrations:/docker-entrypoint-initdb.d
@@ -18,7 +16,7 @@ services:
     image: redis:7-alpine
     container_name: growthai-redis
     ports:
-      - \"6379:6379\"
+      - "6379:6379"
     volumes:
       - redis_data:/data
 
