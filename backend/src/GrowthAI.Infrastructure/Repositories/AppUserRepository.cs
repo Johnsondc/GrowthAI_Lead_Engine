@@ -1,7 +1,7 @@
 // ============================================
-// 鍔熻兘鎻忚堪锛氳璇佷笌澶氱鎴锋ā鍧?- 鐢ㄦ埛鏁版嵁浠撳簱
-// 鐢熸垚锛歈oder by 搴勫洯
-// 鐢熸垚鏃ユ湡锛?026-07-21
+// 功能描述：认证与多租户模块 - 用户数据仓库
+// 生成：Qoder by 庄园
+// 生成日期：2026-07-21
 // ============================================
 
 using GrowthAI.Domain.Entities;
@@ -71,7 +71,7 @@ public class AppUserRepository : IAppUserRepository
         var user = await _db.AppUsers.FindAsync(id);
         if (user != null)
         {
-            user.Status = 0; // Soft delete
+            user.Status = 0;
             await _db.SaveChangesAsync();
         }
     }
