@@ -1,5 +1,5 @@
 // ============================================
-// 功能描述：EF Core 数据库上下文（Sprint 3-6）
+// 功能描述：EF Core 数据库上下文（Sprint 3-7）
 // 生成：Qoder by 庄园
 // 生成日期：2026-07-21
 // ============================================
@@ -21,6 +21,7 @@ public class AppDbContext : DbContext
     public DbSet<AiContent> AiContents => Set<AiContent>();
     public DbSet<LeadCustomer> LeadCustomers => Set<LeadCustomer>();
     public DbSet<FollowUpRecord> FollowUpRecords => Set<FollowUpRecord>();
+    public DbSet<LeadSource> LeadSources => Set<LeadSource>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -134,6 +135,21 @@ public class AppDbContext : DbContext
             entity.HasOne(e => e.LeadCustomer).WithMany().HasForeignKey(e => e.LeadCustomerId);
             entity.HasOne(e => e.Follower).WithMany().HasForeignKey(e => e.FollowerId);
             entity.HasIndex(e => new { e.TenantId, e.LeadCustomerId });
+        });
+
+        // === LeadSource (Sprint 7) ===
+        modelBuilder.Entity<LeadSource>(entity =>
+        {
+            entity.ToTable("LeadSource");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.TenantId).IsRequired();
+            entity.Property(e => e.SourceType).HasMaxLength(30).IsRequired();
+            entity.Property(e => e.Platform).HasMaxLength(30);
+            entity.Property(e => e.AccountName).HasMaxLength(100);
+            entity.Property(e => e.TrackingCode).HasMaxLength(50);
+            entity.Property(e => e.Status).HasDefaultValue(1);
+            entity.HasOne(e => e.Tenant).WithMany().HasForeignKey(e => e.TenantId);
+            entity.HasIndex(e => e.TrackingCode);
         });
     }
 }
