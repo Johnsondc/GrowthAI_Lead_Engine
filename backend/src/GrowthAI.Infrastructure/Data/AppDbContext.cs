@@ -1,5 +1,5 @@
 // ============================================
-// 功能描述：EF Core 数据库上下文（Sprint 3 + Sprint 4）
+// 功能描述：EF Core 数据库上下文（Sprint 3-6）
 // 生成：Qoder by 庄园
 // 生成日期：2026-07-21
 // ============================================
@@ -19,6 +19,8 @@ public class AppDbContext : DbContext
     public DbSet<AiPromptTemplate> AiPromptTemplates => Set<AiPromptTemplate>();
     public DbSet<AiTask> AiTasks => Set<AiTask>();
     public DbSet<AiContent> AiContents => Set<AiContent>();
+    public DbSet<LeadCustomer> LeadCustomers => Set<LeadCustomer>();
+    public DbSet<FollowUpRecord> FollowUpRecords => Set<FollowUpRecord>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -95,6 +97,43 @@ public class AppDbContext : DbContext
             entity.HasOne(e => e.Tenant).WithMany().HasForeignKey(e => e.TenantId);
             entity.HasOne(e => e.AiTask).WithMany().HasForeignKey(e => e.AiTaskId);
             entity.HasIndex(e => new { e.TenantId, e.TargetPlatform });
+        });
+
+        // === LeadCustomer (Sprint 6) ===
+        modelBuilder.Entity<LeadCustomer>(entity =>
+        {
+            entity.ToTable("LeadCustomer");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.TenantId).IsRequired();
+            entity.Property(e => e.Name).HasMaxLength(50);
+            entity.Property(e => e.Phone).HasMaxLength(20);
+            entity.Property(e => e.WeChat).HasMaxLength(50);
+            entity.Property(e => e.City).HasMaxLength(30);
+            entity.Property(e => e.SourcePlatform).HasMaxLength(30);
+            entity.Property(e => e.SourceAccount).HasMaxLength(100);
+            entity.Property(e => e.Status).HasMaxLength(20).HasDefaultValue("New");
+            entity.Property(e => e.SourceType).HasMaxLength(30).HasDefaultValue("ManualInput");
+            entity.Property(e => e.InvalidReason).HasMaxLength(200);
+            entity.HasOne(e => e.Tenant).WithMany().HasForeignKey(e => e.TenantId);
+            entity.HasOne(e => e.AssignedUser).WithMany().HasForeignKey(e => e.AssignedUserId);
+            entity.HasIndex(e => new { e.TenantId, e.Status });
+            entity.HasIndex(e => new { e.TenantId, e.Phone }).IsUnique();
+            entity.HasIndex(e => new { e.TenantId, e.WeChat }).IsUnique();
+        });
+
+        // === FollowUpRecord (Sprint 6) ===
+        modelBuilder.Entity<FollowUpRecord>(entity =>
+        {
+            entity.ToTable("FollowUpRecord");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.TenantId).IsRequired();
+            entity.Property(e => e.LeadCustomerId).IsRequired();
+            entity.Property(e => e.FollowerId).IsRequired();
+            entity.Property(e => e.FollowType).HasMaxLength(20).HasDefaultValue("Phone");
+            entity.Property(e => e.Content).IsRequired();
+            entity.HasOne(e => e.LeadCustomer).WithMany().HasForeignKey(e => e.LeadCustomerId);
+            entity.HasOne(e => e.Follower).WithMany().HasForeignKey(e => e.FollowerId);
+            entity.HasIndex(e => new { e.TenantId, e.LeadCustomerId });
         });
     }
 }
