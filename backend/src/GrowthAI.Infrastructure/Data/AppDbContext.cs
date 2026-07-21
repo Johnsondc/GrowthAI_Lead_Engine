@@ -1,5 +1,5 @@
 // ============================================
-// 功能描述：认证与多租户模块 - EF Core 数据库上下文
+// 功能描述：EF Core 数据库上下文（Sprint 3 + Sprint 4）
 // 生成：Qoder by 庄园
 // 生成日期：2026-07-21
 // ============================================
@@ -16,11 +16,15 @@ public class AppDbContext : DbContext
 
     public DbSet<Tenant> Tenants => Set<Tenant>();
     public DbSet<AppUser> AppUsers => Set<AppUser>();
+    public DbSet<AiPromptTemplate> AiPromptTemplates => Set<AiPromptTemplate>();
+    public DbSet<AiTask> AiTasks => Set<AiTask>();
+    public DbSet<AiContent> AiContents => Set<AiContent>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
+        // === Tenant ===
         modelBuilder.Entity<Tenant>(entity =>
         {
             entity.ToTable("Tenant");
@@ -32,6 +36,7 @@ public class AppDbContext : DbContext
             entity.Property(e => e.Status).HasDefaultValue(1);
         });
 
+        // === AppUser ===
         modelBuilder.Entity<AppUser>(entity =>
         {
             entity.ToTable("AppUser");
@@ -44,6 +49,52 @@ public class AppDbContext : DbContext
             entity.Property(e => e.Status).HasDefaultValue(1);
             entity.HasOne(e => e.Tenant).WithMany().HasForeignKey(e => e.TenantId);
             entity.HasIndex(e => new { e.TenantId, e.Phone }).IsUnique();
+        });
+
+        // === AiPromptTemplate ===
+        modelBuilder.Entity<AiPromptTemplate>(entity =>
+        {
+            entity.ToTable("AiPromptTemplate");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.Name).HasMaxLength(100).IsRequired();
+            entity.Property(e => e.Industry).HasMaxLength(50).IsRequired();
+            entity.Property(e => e.Platform).HasMaxLength(30).IsRequired();
+            entity.Property(e => e.ContentType).HasMaxLength(30).IsRequired();
+            entity.Property(e => e.PromptText).IsRequired();
+            entity.Property(e => e.Status).HasDefaultValue(1);
+            entity.HasIndex(e => new { e.Industry, e.Platform, e.ContentType });
+        });
+
+        // === AiTask ===
+        modelBuilder.Entity<AiTask>(entity =>
+        {
+            entity.ToTable("AiTask");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.TenantId).IsRequired();
+            entity.Property(e => e.TaskType).HasConversion<string>().IsRequired();
+            entity.Property(e => e.Status).HasConversion<string>().HasDefaultValue(AiTaskStatus.Queued);
+            entity.HasOne(e => e.Tenant).WithMany().HasForeignKey(e => e.TenantId);
+            entity.HasOne(e => e.PromptTemplate).WithMany().HasForeignKey(e => e.PromptTemplateId);
+            entity.HasIndex(e => new { e.TenantId, e.Status });
+        });
+
+        // === AiContent ===
+        modelBuilder.Entity<AiContent>(entity =>
+        {
+            entity.ToTable("AiContent");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.TenantId).IsRequired();
+            entity.Property(e => e.Title).HasMaxLength(200);
+            entity.Property(e => e.TargetPlatform).HasMaxLength(30);
+            entity.Property(e => e.ContentType).HasMaxLength(30);
+            entity.Property(e => e.Industry).HasMaxLength(50);
+            entity.Property(e => e.Product).HasMaxLength(100);
+            entity.Property(e => e.City).HasMaxLength(30);
+            entity.Property(e => e.Cta).HasMaxLength(200);
+            entity.Property(e => e.Status).HasDefaultValue(1);
+            entity.HasOne(e => e.Tenant).WithMany().HasForeignKey(e => e.TenantId);
+            entity.HasOne(e => e.AiTask).WithMany().HasForeignKey(e => e.AiTaskId);
+            entity.HasIndex(e => new { e.TenantId, e.TargetPlatform });
         });
     }
 }
