@@ -1,5 +1,5 @@
 // ============================================
-// 功能描述：API启动入口（Sprint 3-8）
+// 功能描述：API启动入口（Sprint 3-9）
 // 生成：Qoder by 庄园
 // 生成日期：2026-07-21
 // ============================================
@@ -10,6 +10,7 @@ using GrowthAI.Application.Auth;
 using GrowthAI.Application.Authorization;
 using GrowthAI.Application.Content;
 using GrowthAI.Application.Enterprise;
+using GrowthAI.Application.LandingPage;
 using GrowthAI.Application.Lead;
 using GrowthAI.Application.LeadSource;
 using GrowthAI.Application.Middleware;
@@ -37,6 +38,7 @@ builder.Services.AddScoped<ILeadRepository, LeadRepository>();
 builder.Services.AddScoped<IFollowUpRecordRepository, FollowUpRecordRepository>();
 builder.Services.AddScoped<ILeadSourceRepository, LeadSourceRepository>();
 builder.Services.AddScoped<IContentRepository, ContentRepository>();
+builder.Services.AddScoped<ILandingPageRepository, LandingPageRepository>();
 
 // === Auth ===
 var jwtSecret = builder.Configuration["Jwt:Secret"]!;
@@ -63,6 +65,9 @@ builder.Services.AddScoped<ILeadSourceService, LeadSourceService>();
 
 // === Content Center (Sprint 8) ===
 builder.Services.AddScoped<IContentService, ContentService>();
+
+// === Landing Page (Sprint 9) ===
+builder.Services.AddScoped<ILandingPageService, LandingPageService>();
 
 // === JWT Authentication ===
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -94,8 +99,8 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "GrowthAI Lead Engine API",
-        Version = "v0.8.0",
-        Description = "AI新媒体获客SaaS平台 - Sprint 3-8"
+        Version = "v0.9.0",
+        Description = "AI新媒体获客SaaS平台 - Sprint 3-9 (P0闭环)"
     });
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
