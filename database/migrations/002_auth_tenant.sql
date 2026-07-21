@@ -41,9 +41,9 @@ CREATE TABLE IF NOT EXISTS AppUser (
 INSERT INTO Tenant (Id, Name, Industry, ContactPhone, PlanType, Status) VALUES
 (1, '测试母婴公司', '母婴', '13800000000', 'Pro', 1);
 
--- 密码统一为: Test123456 (bcrypt hash)
+-- 密码统一为: Test123456 (bcrypt hash placeholder)
 INSERT INTO AppUser (TenantId, Name, Phone, PasswordHash, Role, Status) VALUES
-(1, '系统管理员', '13800000001', 'BCRYPT_HASH_PLACEHOLDER', 'Admin', 1),
-(1, '老板', '13800000002', 'BCRYPT_HASH_PLACEHOLDER', 'Owner', 1),
-(1, '运营小王', '13800000003', 'BCRYPT_HASH_PLACEHOLDER', 'Operator', 1),
-(1, '销售小李', '13800000004', 'BCRYPT_HASH_PLACEHOLDER', 'Sales', 1);
+(1, '系统管理员', '13800000001', '$2a$11$PLACEHOLDER_HASH_REPLACE_IN_PRODUCTION', 'Admin', 1),
+(1, '老板', '13800000002', '$2a$11$PLACEHOLDER_HASH_REPLACE_IN_PRODUCTION', 'Owner', 1),
+(1, '运营小王', '13800000003', '$2a$11$PLACEHOLDER_HASH_REPLACE_IN_PRODUCTION', 'Operator', 1),
+(1, '销售小李', '13800000004', '$2a$11$PLACEHOLDER_HASH_REPLACE_IN_PRODUCTION', 'Sales', 1);
