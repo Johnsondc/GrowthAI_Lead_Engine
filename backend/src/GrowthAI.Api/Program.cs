@@ -1,11 +1,12 @@
 // ============================================
-// 功能描述：API启动入口（Sprint 3-9）
+// 功能描述：API启动入口（Sprint 3-10）
 // 生成：Qoder by 庄园
 // 生成日期：2026-07-21
 // ============================================
 
 using System.Text;
 using GrowthAI.Application.Ai;
+using GrowthAI.Application.Analytics;
 using GrowthAI.Application.Auth;
 using GrowthAI.Application.Authorization;
 using GrowthAI.Application.Content;
@@ -69,6 +70,9 @@ builder.Services.AddScoped<IContentService, ContentService>();
 // === Landing Page (Sprint 9) ===
 builder.Services.AddScoped<ILandingPageService, LandingPageService>();
 
+// === Dashboard (Sprint 10) ===
+builder.Services.AddScoped<IDashboardService, DashboardService>();
+
 // === JWT Authentication ===
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -99,8 +103,8 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "GrowthAI Lead Engine API",
-        Version = "v0.9.0",
-        Description = "AI新媒体获客SaaS平台 - Sprint 3-9 (P0闭环)"
+        Version = "v1.0.0",
+        Description = "AI新媒体获客SaaS平台 - 全功能后端"
     });
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
