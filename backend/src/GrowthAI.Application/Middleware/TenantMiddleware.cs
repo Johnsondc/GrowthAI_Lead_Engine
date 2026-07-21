@@ -1,7 +1,7 @@
 // ============================================
-// 鍔熻兘鎻忚堪锛氳璇佷笌澶氱鎴锋ā鍧?- 绉熸埛涓婁笅鏂囦腑浠?
-// 鐢熸垚锛歈oder by 搴勫洯
-// 鐢熸垚鏃ユ湡锛?026-07-21
+// 功能描述：认证与多租户模块 - 租户上下文中件
+// 生成：Qoder by 庄园
+// 生成日期：2026-07-21
 // ============================================
 
 using System.Security.Claims;
@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 namespace GrowthAI.Application.Middleware;
 
 /// <summary>
-/// 浠嶫WT涓彁鍙朤enantId骞舵敞鍏ttpContext锛屼緵鍚庣画涓氬姟浣跨敤
+/// 从JWT中提取TenantId并注入HttpContext，供后续业务使用
 /// </summary>
 public class TenantMiddleware
 {
@@ -43,7 +43,7 @@ public class TenantMiddleware
 }
 
 /// <summary>
-/// HttpContext鎵╁睍鏂规硶锛屾柟渚胯幏鍙栫鎴稩D
+/// HttpContext扩展方法，方便获取租户ID
 /// </summary>
 public static class HttpContextExtensions
 {
