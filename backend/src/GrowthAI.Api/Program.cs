@@ -1,7 +1,7 @@
 // ============================================
-// 鍔熻兘鎻忚堪锛氳璇佷笌澶氱鎴锋ā鍧?- API鍚姩鍏ュ彛
-// 鐢熸垚锛歈oder by 搴勫洯
-// 鐢熸垚鏃ユ湡锛?026-07-21
+// 功能描述：认证与多租户模块 - API启动入口
+// 生成：Qoder by 庄园
+// 生成日期：2026-07-21
 // ============================================
 
 using System.Text;
@@ -69,7 +69,6 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// === Middleware Pipeline ===
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
