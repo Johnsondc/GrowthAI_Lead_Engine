@@ -1,5 +1,5 @@
 // ============================================
-// 功能描述：API启动入口（Sprint 3 + Sprint 4）
+// 功能描述：API启动入口（Sprint 3-5）
 // 生成：Qoder by 庄园
 // 生成日期：2026-07-21
 // ============================================
@@ -8,6 +8,7 @@ using System.Text;
 using GrowthAI.Application.Ai;
 using GrowthAI.Application.Auth;
 using GrowthAI.Application.Authorization;
+using GrowthAI.Application.Enterprise;
 using GrowthAI.Application.Middleware;
 using GrowthAI.Infrastructure.Data;
 using GrowthAI.Infrastructure.Repositories;
@@ -43,6 +44,10 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddSingleton<IAiProvider, MockAiProvider>();
 builder.Services.AddScoped<IAiService, AiService>();
 
+// === Enterprise (Sprint 5) ===
+builder.Services.AddScoped<IEnterpriseService, EnterpriseService>();
+builder.Services.AddScoped<IAppUserService, AppUserService>();
+
 // === JWT Authentication ===
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -73,8 +78,8 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "GrowthAI Lead Engine API",
-        Version = "v0.4.0",
-        Description = "AI新媒体获客SaaS平台 - Sprint 3 认证 + Sprint 4 AI引擎"
+        Version = "v0.5.0",
+        Description = "AI新媒体获客SaaS平台 - Sprint 3-5"
     });
 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
