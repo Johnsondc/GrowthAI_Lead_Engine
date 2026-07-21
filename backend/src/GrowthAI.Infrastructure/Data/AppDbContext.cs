@@ -1,5 +1,5 @@
 // ============================================
-// 功能描述：EF Core 数据库上下文（Sprint 3-7）
+// 功能描述：EF Core 数据库上下文（Sprint 3-9）
 // 生成：Qoder by 庄园
 // 生成日期：2026-07-21
 // ============================================
@@ -22,6 +22,7 @@ public class AppDbContext : DbContext
     public DbSet<LeadCustomer> LeadCustomers => Set<LeadCustomer>();
     public DbSet<FollowUpRecord> FollowUpRecords => Set<FollowUpRecord>();
     public DbSet<LeadSource> LeadSources => Set<LeadSource>();
+    public DbSet<LandingPage> LandingPages => Set<LandingPage>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -150,6 +151,22 @@ public class AppDbContext : DbContext
             entity.Property(e => e.Status).HasDefaultValue(1);
             entity.HasOne(e => e.Tenant).WithMany().HasForeignKey(e => e.TenantId);
             entity.HasIndex(e => e.TrackingCode);
+        });
+
+        // === LandingPage (Sprint 9) ===
+        modelBuilder.Entity<LandingPage>(entity =>
+        {
+            entity.ToTable("LandingPage");
+            entity.HasKey(e => e.Id);
+            entity.Property(e => e.TenantId).IsRequired();
+            entity.Property(e => e.Title).HasMaxLength(200).IsRequired();
+            entity.Property(e => e.PageCode).HasMaxLength(50).IsRequired();
+            entity.Property(e => e.CoverImage).HasMaxLength(500);
+            entity.Property(e => e.ThankYouMessage).HasMaxLength(500);
+            entity.Property(e => e.RedirectUrl).HasMaxLength(500);
+            entity.Property(e => e.Status).HasDefaultValue(1);
+            entity.HasOne(e => e.Tenant).WithMany().HasForeignKey(e => e.TenantId);
+            entity.HasIndex(e => e.PageCode).IsUnique();
         });
     }
 }
